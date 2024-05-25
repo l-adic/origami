@@ -5,4 +5,4 @@ import Protolude
 import ZK.Adder (Vellas, circuit)
 
 main :: IO ()
-main = defaultMain "circuit" (circuit @Vellas)
+main = defaultMain "adder" (circuit @Vellas)

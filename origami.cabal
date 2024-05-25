@@ -33,7 +33,7 @@ library
     hs-source-dirs:   src
     default-language: GHC2021
 
-executable origami
+executable adder
     import:           warnings, deps, extensions
     main-is:          Main.hs
     build-depends:
