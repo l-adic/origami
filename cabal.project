@@ -1,7 +1,7 @@
 tests: True
 
 packages:
-  ./origami.cabal
+  ./circuit/origami.cabal
 
 source-repository-package
   type: git
