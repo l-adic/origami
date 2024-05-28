@@ -113,13 +113,7 @@ fn run_test(circuit_filepath: String, witness_gen_filepath: String) {
 }
 
 fn main() {
-    let group_name = "pasta";
-
-    let circuit_filepath = format!("examples/toy/{}/toy.r1cs", group_name);
-    for witness_gen_filepath in [
-        format!("examples/toy/{}/toy_cpp/toy", group_name),
-        format!("examples/toy/{}/toy_js/toy.wasm", group_name),
-    ] {
-        run_test(circuit_filepath.clone(), witness_gen_filepath);
-    }
+    let circuit_filepath : String = "adder.r1cs".to_string();
+    let witness_generator_filepath: String = "witness-generator.sh".to_string();
+    run_test(circuit_filepath, witness_generator_filepath);
 }

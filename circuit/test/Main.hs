@@ -21,27 +21,23 @@ main = hspec $ do
         \a si0 si1 ->
           let inputs =
                 Map.fromList
-                  [ ("adder", a),
-                    ("step_in_0", si0),
-                    ("step_in_1", si1)
+                  [ ("adder", Simple a),
+                    ("step_in", Array [si0, si1])
                   ]
               Witness w =
                 witnessFromCircomWitness $
                   nativeGenWitness program inputs
-           in (lookupVar vars "step_out_0" w === Just (a + si0))
-                .&&. (lookupVar vars "step_out_1" w === Just (si1 + si0))
+           in lookupArrayVars vars "step_out" w === Just [a + si0, si1 + si0]
     it "should reject invalid assignments" $
       property $
         \a si0 si1 so0 so1 ->
           (so0 /= si0 + a && so1 /= si1 + si0)
             ==> let inputs =
                       Map.fromList
-                        [ ("adder", a),
-                          ("step_in_0", si0),
-                          ("step_in_1", si1)
+                        [ ("adder", Simple a),
+                          ("step_in", Array [si0, si1])
                         ]
                     Witness w =
                       witnessFromCircomWitness $
                         nativeGenWitness program inputs
-                 in (lookupVar vars "step_out_0" w /= Just so0)
-                      .&&. (lookupVar vars "step_out_1" w /= Just so1)
+                 in lookupArrayVars vars "step_out" w /= Just [so0, so1]

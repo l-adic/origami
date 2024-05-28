@@ -19,6 +19,7 @@ common deps
       , galois-field
       , protolude
       , vector
+      , vector-sized
 
 common extensions
     default-extensions:
