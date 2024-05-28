@@ -1,6 +1,8 @@
 dist-newstyle
 circuit-output
 inputs.json
+adder.*
+adder-inputs-template.json
 
 
 # Added by cargo
