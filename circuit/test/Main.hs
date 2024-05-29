@@ -8,11 +8,11 @@ import Protolude
 import R1CS (Witness (..))
 import Test.Hspec
 import Test.QuickCheck
-import ZK.Adder (Vellas, circuit)
+import ZK.Adder (Vesta, circuit)
 
 main :: IO ()
 main = hspec $ do
-  let BuilderState {bsVars, bsCircuit} = snd $ runCircuitBuilder (circuit @Vellas)
+  let BuilderState {bsVars, bsCircuit} = snd $ runCircuitBuilder (circuit @Vesta)
       program = mkCircomProgram bsVars bsCircuit
       vars = cpVars program
   describe "Circuit" $ do

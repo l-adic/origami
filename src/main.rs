@@ -29,7 +29,7 @@ fn run_test(circuit_filepath: String, witness_gen_filepath: String) {
     let mut private_inputs = Vec::new();
     for i in 0..iteration_count {
         let mut private_input = HashMap::new();
-        private_input.insert("adder".to_string(), json!(i));
+        private_input.insert("adder".to_string(), json!(i.to_string()));
         private_inputs.push(private_input);
     }
 
@@ -114,6 +114,5 @@ fn run_test(circuit_filepath: String, witness_gen_filepath: String) {
 
 fn main() {
     let circuit_filepath : String = "adder.r1cs".to_string();
-    let witness_generator_filepath: String = "witness-generator.sh".to_string();
-    run_test(circuit_filepath, witness_generator_filepath);
+    run_test(circuit_filepath, "witness-generator.sh".to_string());
 }

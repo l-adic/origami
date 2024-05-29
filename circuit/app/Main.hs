@@ -2,7 +2,7 @@ module Main where
 
 import Circom.CLI (defaultMain)
 import Protolude
-import ZK.Adder (Vellas, circuit)
+import ZK.Adder (Vesta, circuit)
 
 main :: IO ()
-main = defaultMain "adder" (circuit @Vellas)
+main = defaultMain "adder" (circuit @Vesta)

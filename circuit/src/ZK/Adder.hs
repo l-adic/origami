@@ -1,5 +1,5 @@
 {-# LANGUAGE  PatternSynonyms #-}
-module ZK.Adder (Vellas, circuit) where
+module ZK.Adder (Vesta, circuit) where
 
 import Circuit
 import Circuit.Language
@@ -7,7 +7,7 @@ import Data.Field.Galois (Prime, PrimeField)
 import Data.Vector.Sized (index, pattern Build, pattern (:<), pattern Nil)
 import Protolude
 
-type Vellas = Prime 28948022309329048855892746252171976963363056481941647379679742748393362948097
+type Vesta = Prime 28948022309329048855892746252171976963363056481941647379679742748393362948097
 
 circuit :: (Hashable f, PrimeField f) => ExprM f ()
 circuit = do
