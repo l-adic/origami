@@ -1,16 +1,15 @@
-use std::{collections::HashMap, env::current_dir, time::Instant};
-
+use std::{collections::HashMap, env::current_dir, env, time::Instant};
 use nova_scotia::{
     circom::reader::load_r1cs, create_public_params, create_recursive_circuit, FileLocation, F, S,
 };
 use nova_snark::{
-    provider,
-    traits::{circuit::StepCircuit, Group},
     CompressedSNARK, PublicParams,
 };
 use serde_json::json;
 
-fn run_test(circuit_filepath: String, witness_gen_filepath: String) {
+
+
+fn run_test(circuit_filepath: String, witness_gen_filepath: String, circuit_bin_filepath: String) {
     type G1 = pasta_curves::pallas::Point;
     type G2 = pasta_curves::vesta::Point;
 
@@ -23,6 +22,7 @@ fn run_test(circuit_filepath: String, witness_gen_filepath: String) {
     let root = current_dir().unwrap();
 
     let circuit_file = root.join(circuit_filepath);
+    let circuit_bin = root.join(circuit_bin_filepath);
     let r1cs = load_r1cs::<G1, G2>(&FileLocation::PathBuf(circuit_file));
     let witness_generator_file = root.join(witness_gen_filepath);
 
@@ -63,6 +63,7 @@ fn run_test(circuit_filepath: String, witness_gen_filepath: String) {
         private_inputs,
         start_public_input.to_vec(),
         &pp,
+        &circuit_bin
     )
     .unwrap();
     println!("RecursiveSNARK creation took {:?}", start.elapsed());
@@ -112,7 +113,26 @@ fn run_test(circuit_filepath: String, witness_gen_filepath: String) {
     assert!(res.is_ok());
 }
 
+
 fn main() {
     let circuit_filepath : String = "adder.r1cs".to_string();
-    run_test(circuit_filepath, "witness-generator.sh".to_string());
+
+    let args: Vec<String> = env::args().collect();
+
+    if args.len() != 2 {
+        panic!("Usage: {} <mode>", args[0]);
+    }
+
+    let mode = &args[1];
+    
+    if mode == "wasm" {
+      println!("Proving with wasm witness gen...");
+      run_test(circuit_filepath, "circuit.wasm".to_string(), "./".to_string());
+    } else if mode == "native" {
+      println!("Proving with native witness gen ...");
+      run_test(circuit_filepath.clone(), "witness-generator.sh".to_string(), "./".to_string());
+    } else {
+        panic!("mode must be wasm or native. Got: {}", mode);
+    }
+
 }

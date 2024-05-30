@@ -1,0 +1,24 @@
+cabal-version: 3.0
+name:          wasm-solver
+version:       0.0.0.0
+
+executable wasm-solver
+  main-is:          Main.hs
+  hs-source-dirs:   app
+  c-sources:        cbits/init.c
+  default-language: GHC2021
+  default-extensions: 
+    NoImplicitPrelude
+    BlockArguments
+    OverloadedStrings
+    RecordWildCards
+  ghc-options:
+    -Wall -Wunused-packages -no-hs-main -optl-mexec-model=reactor
+    "-optl-Wl,--export=init,--export=getNVars,--export=getVersion,--export=getRawPrime,--export=writeSharedRWMemory,--export=readSharedRWMemory,--export=getFieldNumLen32,--export=setInputSignal,--export=getInputSignalSize,--export=getWitnessSize,--export=getWitness,--export=getInputSize"
+
+  build-depends:
+      arithmetic-circuits:circom-compat
+    , base            >=4.10  && <5
+    , binary
+    , origami
+    , protolude

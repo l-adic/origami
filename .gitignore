@@ -1,8 +1,10 @@
 dist-newstyle
 circuit-output
 inputs.json
+circuit.wasm
 adder.*
 adder-inputs-template.json
+.direnv
 
 
 # Added by cargo
