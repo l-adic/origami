@@ -1,4 +1,5 @@
 module Main (main) where
+
 import Circom.R1CS (witnessFromCircomWitness)
 import Circom.Solver (CircomProgram (..), mkCircomProgram, nativeGenWitness)
 import Circuit
@@ -31,13 +32,13 @@ main = hspec $ do
     it "should reject invalid assignments" $
       property $
         \a si0 si1 so0 so1 ->
-          (so0 /= si0 + a && so1 /= si1 + si0)
-            ==> let inputs =
-                      Map.fromList
-                        [ ("adder", Simple a),
-                          ("step_in", Array [si0, si1])
-                        ]
-                    Witness w =
-                      witnessFromCircomWitness $
-                        nativeGenWitness program inputs
-                 in lookupArrayVars vars "step_out" w /= Just [so0, so1]
+          (so0 /= si0 + a && so1 /= si1 + si0) ==>
+            let inputs =
+                  Map.fromList
+                    [ ("adder", Simple a),
+                      ("step_in", Array [si0, si1])
+                    ]
+                Witness w =
+                  witnessFromCircomWitness $
+                    nativeGenWitness program inputs
+             in lookupArrayVars vars "step_out" w /= Just [so0, so1]

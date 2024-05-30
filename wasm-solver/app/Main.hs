@@ -1,7 +1,7 @@
 module Main where
 
-import Data.Binary (decodeFile)
 import Circom.Solver qualified as Circom
+import Data.Binary (decodeFile)
 import Data.IORef (IORef, newIORef)
 import Protolude
 import System.IO.Unsafe (unsafePerformIO)
