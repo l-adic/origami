@@ -17,3 +17,4 @@ else
     wasm-opt "$@" "$WDIR/adder-init.wasm" -o "$ADDER_WASM_OPT"
 fi
 cp "$ADDER_WASM_OPT" ../circuit.wasm
+
