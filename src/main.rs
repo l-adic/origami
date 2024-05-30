@@ -1,4 +1,4 @@
-use std::{collections::HashMap, env::current_dir, time::Instant};
+use std::{collections::HashMap, env::current_dir, env, time::Instant};
 use nova_scotia::{
     circom::reader::load_r1cs, create_public_params, create_recursive_circuit, FileLocation, F, S,
 };
@@ -6,6 +6,8 @@ use nova_snark::{
     CompressedSNARK, PublicParams,
 };
 use serde_json::json;
+
+
 
 fn run_test(circuit_filepath: String, witness_gen_filepath: String, circuit_bin_filepath: String) {
     type G1 = pasta_curves::pallas::Point;
@@ -111,10 +113,26 @@ fn run_test(circuit_filepath: String, witness_gen_filepath: String, circuit_bin_
     assert!(res.is_ok());
 }
 
+
 fn main() {
     let circuit_filepath : String = "adder.r1cs".to_string();
-    println!("Proving with native witness gen ...");
-    run_test(circuit_filepath.clone(), "witness-generator.sh".to_string(), "./".to_string());
-    println!("Proving with wasm witness gen...");
-    run_test(circuit_filepath, "circuit.wasm".to_string(), "./".to_string());
+
+    let args: Vec<String> = env::args().collect();
+
+    if args.len() != 2 {
+        panic!("Usage: {} <mode>", args[0]);
+    }
+
+    let mode = &args[1];
+    
+    if mode == "wasm" {
+      println!("Proving with wasm witness gen...");
+      run_test(circuit_filepath, "circuit.wasm".to_string(), "./".to_string());
+    } else if mode == "native" {
+      println!("Proving with native witness gen ...");
+      run_test(circuit_filepath.clone(), "witness-generator.sh".to_string(), "./".to_string());
+    } else {
+        panic!("mode must be wasm or native. Got: {}", mode);
+    }
+
 }

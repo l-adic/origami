@@ -21,7 +21,19 @@ The example circuit is a simple adding circuit which is taken from the `nova-sco
 ```
 
 ## Run Instructions
+
+### Native witness gen
+
 ```
 > cabal run adder -- compile
-> cargo run
+> cargo run native
+```
+
+### WASM witness gen
+```
+> cabal run adder -- compile
+> cd wasm-solver
+> ./build-wash.sh
+> cd ..
+> cargo run wasm
 ```
