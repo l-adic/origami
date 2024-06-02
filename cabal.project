@@ -25,5 +25,5 @@ source-repository-package
 source-repository-package
   type: git
   location: https://github.com/l-adic/arithmetic-circuits.git
-  tag: dd73d6557098956e8d83a02e8b669cc3372a3192
+  tag: 7d06e2b5df24237d8d694ca842ff1cd7e6609b34
   --sha256: ngh2xhBSAu/2d4KlpCo5Aq8ezd6hX/MoNx26sLJzf0w=
