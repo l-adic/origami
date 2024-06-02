@@ -17,8 +17,8 @@ executable wasm-solver
     "-optl-Wl,--export=init,--export=getNVars,--export=getVersion,--export=getRawPrime,--export=writeSharedRWMemory,--export=readSharedRWMemory,--export=getFieldNumLen32,--export=setInputSignal,--export=getInputSignalSize,--export=getWitnessSize,--export=getWitness,--export=getInputSize"
 
   build-depends:
-      arithmetic-circuits:circom-compat
+      arithmetic-circuits
+    , arithmetic-circuits:circom-compat
     , base            >=4.10  && <5
     , binary
-    , origami
     , protolude

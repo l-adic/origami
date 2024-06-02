@@ -9,7 +9,7 @@ import Protolude
 import R1CS (Witness (..))
 import Test.Hspec
 import Test.QuickCheck
-import ZK.Adder (Vesta, circuit)
+import ZK.Adder (circuit)
 
 main :: IO ()
 main = hspec $ do
