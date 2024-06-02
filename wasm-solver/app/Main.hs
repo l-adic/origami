@@ -1,11 +1,11 @@
 module Main where
 
 import Circom.Solver qualified as Circom
+import Circuit (Vesta)
 import Data.Binary (decodeFile)
 import Data.IORef (IORef, newIORef)
 import Protolude
 import System.IO.Unsafe (unsafePerformIO)
-import ZK.Adder (Vesta)
 
 main :: IO ()
 main = mempty
